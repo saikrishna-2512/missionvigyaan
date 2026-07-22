@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mission Vigyaan – Inspiring Young Innovators</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --navy:#0A1628;
+    --blue:#1057A8;
+    --accent:#F5841F;
+    --gold:#FFB830;
+    --green:#27AE60;
+    --light:#F0F4FA;
+    --white:#FFFFFF;
+    --text:#1A2340;
+    --muted:#6B7A99;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;}
+  h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
+
+  /* ── NAV ── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:999;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 5%;height:72px;
+    background:rgba(10,22,40,0.92);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    transition:all .3s;
+  }
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  
+  /* FIXED LOGO CSS */
+  .logo-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    overflow: hidden; /* This stops the logo from coming outside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+    background: var(--navy);
+    flex-shrink: 0;
+  }
+  .logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the image fit perfectly inside the circle */
+  }
+
+
+  .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--gold);letter-spacing:.5px;}
+  .logo-text span{color:var(--gold);}
+  .nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s;letter-spacing:.3px;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{background:linear-gradient(135deg,var(--accent),#e0711a);color:var(--white);padding:10px 22px;border-radius:8px;font-weight:700;font-size:.9rem;text-decoration:none;transition:transform .2s,box-shadow .2s;font-family:'Syne',sans-serif;letter-spacing:.4px;}
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,132,31,.45);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
+  .hamburger span{width:24px;height:2px;background:white;border-radius:2px;transition:.3s;}
+
+  /* ── HERO ── */
+  .hero{
+    min-height:100vh;padding-top:72px;
+    background:linear-gradient(to right, rgba(5,13,26,0.85) 40%, rgba(5,13,26,0.3) 100%), url('robot.jpg') center/cover no-repeat;
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;
+  }
+  .hero-grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:60px 60px;
+  }
+  .hero-orbs{position:absolute;inset:0;pointer-events:none;}
+  .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;}
+  .orb1{width:500px;height:500px;background:var(--blue);top:-100px;right:-100px;}
+  .orb2{width:350px;height:350px;background:var(--accent);bottom:-80px;left:-80px;}
+  .orb3{width:200px;height:200px;background:var(--gold);top:40%;right:30%;}
+  .hero-inner{
+    position:relative;z-index:2;
+    width:100%;max-width:1300px;margin:0 auto;padding:80px 2% 80px 4%;
+    display:grid;grid-template-columns:1fr;align-items:center;gap:30px;
+  }
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,184,48,.15);border:1px solid rgba(255,184,48,.3);padding:6px 16px;border-radius:50px;margin-bottom:24px;}
+  .hero-badge span{font-size:.8rem;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+  .hero-badge .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+  .hero h1{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.12;color:var(--white);font-weight:800;}
+  .hero h1 .hl-orange{color:var(--accent);}
+  .hero h1 .hl-yellow{color:var(--gold);}
+  .hero-sub{margin-top:16px;font-size:1.05rem;color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;}
+  .hero-tagline{margin-top:20px;display:flex;gap:16px;align-items:center;}
+  .hero-tagline span{color:rgba(255,255,255,.9);font-weight:600;font-size:.95rem;}
+  .hero-tagline .sep{color:var(--accent);font-size:1.2rem;}
+  .hero-btns{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),#e0711a);color:white;padding:14px 30px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;transition:all .25s;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(245,132,31,.5);}
+  .btn-secondary{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.25);color:white;padding:14px 30px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;}
+  .btn-secondary:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.5);}
+  .hero-stats{margin-top:52px;display:flex;gap:36px;flex-wrap:wrap;}
+  .stat{display:flex;flex-direction:column;}
+  .stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--white);}
+  .stat-num span{color:var(--accent);}
+  .stat-label{font-size:.8rem;color:rgba(255,255,255,.55);letter-spacing:.5px;margin-top:2px;text-transform:uppercase;}
+  .hero-visual{position:relative;display:flex;justify-content:center;align-items:center;padding-left:0;}
+  .hero-card-main{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:32px;backdrop-filter:blur(10px);position:relative;animation:float 6s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  .robot-emoji{font-size:120px;display:block;text-align:center;}
+  .floating-chip{position:absolute;background:rgba(255,255,255,.95);border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.2);font-size:.82rem;font-weight:600;color:var(--text);}
+  .chip1{top:-20px;left:-40px;animation:float2 4s ease-in-out infinite;}
+  .chip2{bottom:20px;right:-50px;animation:float2 5s ease-in-out infinite .5s;}
+  .chip3{top:40%;left:-70px;animation:float2 4.5s ease-in-out infinite 1s;}
+  @keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .chip-icon{font-size:1.4rem;}
+
+  /* ── PROGRAMS ── */
+  .programs{padding:100px 5%;background:var(--light);}
+  .section-label{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;}
+  .section-label span{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--accent);}
+  .section-label::before,.section-label::after{content:'';flex:1;max-width:60px;height:2px;background:linear-gradient(to right,transparent,var(--accent));}
+  .section-label::after{background:linear-gradient(to left,transparent,var(--accent));}
+  .section-title{text-align:center;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--navy);margin-bottom:12px;}
+  .section-sub{text-align:center;color:var(--muted);font-size:1rem;max-width:560px;margin:0 auto 56px;}
+  .programs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1200px;margin:0 auto;}
+  .prog-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.07);transition:all .3s;cursor:pointer;position:relative;}
+  .prog-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(16,87,168,.18);}
+  .prog-img{height:180px;background:var(--navy);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .prog-img-emoji{font-size:64px;}
+  .prog-img-bg{position:absolute;inset:0;opacity:.15;}
+  .prog-body{padding:22px 20px 24px;}
+  .prog-tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;margin-bottom:10px;}
+  .prog-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--navy);margin-bottom:6px;}
+  .prog-title span{color:var(--accent);}
+  .prog-desc{font-size:.85rem;color:var(--muted);line-height:1.6;}
+  .prog-diamond{width:12px;height:12px;transform:rotate(45deg);margin-top:14px;}
+  
+  /* card themes */
+  .card-blue .prog-img{background:linear-gradient(135deg,#0a2a6b,#1057A8);}
+  .card-blue .prog-tag{background:#e8f0fe;color:#1057A8;}
+  .card-blue .prog-diamond{background:#1057A8;}
+  .card-orange .prog-img{background:linear-gradient(135deg,#7a2e00,#F5841F);}
+  .card-orange .prog-tag{background:#fff3e0;color:#F5841F;}
+  .card-orange .prog-title span{color:#F5841F;}
+  .card-orange .prog-diamond{background:#F5841F;}
+  .card-green .prog-img{background:linear-gradient(135deg,#0d4d2f,#27AE60);}
+  .card-green .prog-tag{background:#e6f7ee;color:#27AE60;}
+  .card-green .prog-title span{color:#27AE60;}
+  .card-green .prog-diamond{background:#27AE60;}
+  .card-red .prog-img{background:linear-gradient(135deg,#6b0a0a,#E53935);}
+  .card-red .prog-tag{background:#fdecea;color:#E53935;}
+  .card-red .prog-title span{color:#E53935;}
+  .card-red .prog-diamond{background:#E53935;}
+  .card-purple .prog-img{background:linear-gradient(135deg,#2a0a6b,#7B1FA2);}
+  .card-purple .prog-tag{background:#f3e5f5;color:#7B1FA2;}
+  .card-purple .prog-title span{color:#7B1FA2;}
+  .card-purple .prog-diamond{background:#7B1FA2;}
+
+  /* ── WHY ── */
+  .why{padding:100px 5%;background:var(--white);}
+  .why-inner{max-width:1200px;margin:0 auto;}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:0;}
+  .why-card{text-align:center;padding:44px 32px;border-radius:20px;background:var(--light);border:1.5px solid transparent;transition:all .3s;position:relative;overflow:hidden;}
+  .why-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue),var(--accent));opacity:0;transition:.3s;z-index:0;}
+  .why-card:hover{border-color:var(--blue);transform:translateY(-6px);box-shadow:0 20px 50px rgba(16,87,168,.15);}
+  .why-card:hover .why-icon-wrap{background:rgba(255,255,255,.2);}
+  .why-card:hover h3,.why-card:hover p{color:var(--white);position:relative;z-index:1;}
+  .why-card:hover::before{opacity:1;}
+  .why-icon-wrap{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--blue),#1e78d4);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem;transition:.3s;position:relative;z-index:1;}
+  .why-card h3{font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:10px;transition:.3s;position:relative;z-index:1;}
+  .why-card p{font-size:.9rem;color:var(--muted);line-height:1.7;transition:.3s;position:relative;z-index:1;}
+
+  /* ── TESTIMONIALS ── */
+  .testimonials{padding:100px 5%;background:var(--navy);position:relative;overflow:hidden;}
+  .testimonials::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:var(--blue);border-radius:50%;opacity:.2;filter:blur(80px);}
+  .test-inner{max-width:1200px;margin:0 auto;}
+  .test-inner .section-title{color:var(--white);}
+  .test-inner .section-sub{color:rgba(255,255,255,.5);}
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px;}
+  .test-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:32px;position:relative;transition:.3s;}
+  .test-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,184,48,.3);}
+  .test-quote{font-size:3rem;line-height:1;color:var(--gold);font-family:'Syne',sans-serif;margin-bottom:12px;}
+  .test-text{color:rgba(255,255,255,.8);font-size:.92rem;line-height:1.75;margin-bottom:24px;}
+  .test-author{display:flex;align-items:center;gap:12px;}
+  .test-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:white;font-family:'Syne',sans-serif;}
+  .test-name{font-weight:700;color:var(--white);font-size:.9rem;}
+  .test-role{font-size:.78rem;color:rgba(255,255,255,.45);}
+  .stars{color:var(--gold);font-size:.85rem;margin-bottom:12px;letter-spacing:2px;}
+
+  /* ── IMPACT ── */
+  .impact{padding:100px 5%;background:linear-gradient(135deg,#0a1e3d,#0f3575);}
+  .impact-inner{max-width:1200px;margin:0 auto;}
+  .impact-inner .section-title{color:var(--white);}
+  .impact-inner .section-sub{color:rgba(255,255,255,.55);}
+  .impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .impact-card{text-align:center;padding:44px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;transition:.3s;}
+  .impact-card:hover{background:rgba(255,255,255,.12);transform:scale(1.04);}
+  .impact-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:var(--gold);display:block;line-height:1;}
+  .impact-label{font-size:.88rem;color:rgba(255,255,255,.65);margin-top:10px;letter-spacing:.5px;}
+  .impact-icon{font-size:2rem;margin-bottom:16px;display:block;}
+
+  /* ── PARTNER CTA ── */
+  .partner{padding:100px 5%;background:var(--light);}
+  .partner-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .partner-text h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:16px;}
+  .partner-text h2 span{color:var(--accent);}
+  .partner-text p{color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:32px;}
+  .partner-btns{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-green{background:linear-gradient(135deg,#27AE60,#1e8a4c);color:white;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;transition:.25s;display:inline-flex;align-items:center;gap:8px;}
+  .btn-green:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(39,174,96,.4);}
+  .partner-visual{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .p-mini-card{background:var(--white);border-radius:16px;padding:24px 20px;box-shadow:0 4px 20px rgba(0,0,0,.07);text-align:center;}
+  .p-mini-icon{font-size:2rem;margin-bottom:10px;}
+  .p-mini-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--navy);margin-bottom:4px;}
+  .p-mini-desc{font-size:.8rem;color:var(--muted);}
+
+  /* ── PHOTO MARQUEE ── */
+  .photo-marquee-wrapper {
+    padding: 60px 0 20px;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  /* .section-label-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  } */
+  /* .section-label-center span {
+    font-size: .8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  } */
+  .photo-marquee {
+    display: flex;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: flex;
+    animation: scroll-marquee 30s linear infinite;
+  }
+  .marquee-track img {
+    height: 250px;
+    width: 350px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .marquee-track img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  }
+  .photo-marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  .photo-marquee-wrapper .section-label{
+
+    margin-bottom: 40px;
+  }
+  @keyframes scroll-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* ── IMAGE LIGHTBOX MODAL ── */
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(5, 13, 26, 0.88);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .image-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .image-modal-wrapper {
+    position: relative;
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .image-modal.open .image-modal-wrapper {
+    transform: scale(1);
+  }
+  .image-modal-img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .image-modal-close {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: none;
+    transform: none;
+  }
+  .image-modal-close:hover {
+    background: transparent;
+    color: var(--gold);
+    border-color: var(--gold);
+    transform: none;
+  }
+  @media(max-width: 600px) {
+    .image-modal-close {
+      top: -40px;
+      right: -40px;
+      width: 34px;
+      height: 34px;
+      font-size: 1.1rem;
+    }
+  }
+
+  /* ── GALLERY ── */
+  .gallery{padding:100px 5% 60px;background:var(--white);}
+  .gallery-inner{max-width:1200px;margin:0 auto;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;margin-top:20px;}
+  .g-item{border-radius:16px;overflow:hidden;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;min-height:160px;}
+  .g-item.tall{grid-row:span 2;}
+  .g-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:white;font-size:.82rem;font-weight:600;font-family:'Syne',sans-serif;letter-spacing:.5px;}
+  .g-bg1{background:linear-gradient(135deg,#0a2a6b,#1057A8);}
+  .g-bg2{background:linear-gradient(135deg,#6b2a00,#F5841F);}
+  .g-bg3{background:linear-gradient(135deg,#0d4d2f,#27AE60);}
+  .g-bg4{background:linear-gradient(135deg,#4a0070,#9C27B0);}
+  .g-bg5{background:linear-gradient(135deg,#002060,#0d47a1);}
+  .g-bg6{background:linear-gradient(135deg,#7a0000,#E53935);}
+
+  /* ── FOOTER ── */
+  footer{background:var(--navy);padding:70px 5% 32px;color:rgba(255,255,255,.6);}
+  .footer-inner{max-width:1200px;margin:0 auto;}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1);}
+  .footer-brand .logo-text{font-size:1.25rem;}
+  .footer-brand p{margin-top:16px;font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.45);max-width:280px;}
+  .footer-social{display:flex;gap:10px;margin-top:20px;}
+  .s-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;transition:.2s;}
+  .s-btn:hover{background:var(--accent);}
+  .footer-col h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--white);margin-bottom:20px;letter-spacing:.3px;}
+  .footer-col ul{list-style:none;}
+  .footer-col ul li{margin-bottom:10px;}
+  .footer-col ul li a{color:rgba(255,255,255,.45);text-decoration:none;font-size:.88rem;transition:.2s;}
+  .footer-col ul li a:hover{color:var(--gold);}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:32px;flex-wrap:wrap;gap:12px;}
+  .footer-bottom p{font-size:.82rem;color:rgba(255,255,255,.3);}
+  .footer-bottom a{color:var(--gold);text-decoration:none;}
+  .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:6px 12px;font-size:.78rem;color:rgba(255,255,255,.6);}
+
+  /* ── SCROLL ANIMATION ── */
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay1{transition-delay:.1s;}
+  .reveal-delay2{transition-delay:.2s;}
+  .reveal-delay3{transition-delay:.3s;}
+  .reveal-delay4{transition-delay:.4s;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .hero-inner{grid-template-columns:1fr;text-align:center;}
+    .hero-sub{margin:16px auto 0;}
+    .hero-btns{justify-content:center;}
+    .hero-stats{justify-content:center;}
+    .hero-visual{margin-top:40px;}
+    .why-grid{grid-template-columns:1fr 1fr;}
+    .impact-grid{grid-template-columns:repeat(2,1fr);}
+    .test-grid{grid-template-columns:1fr 1fr;}
+    .footer-top{grid-template-columns:1fr 1fr;}
+    .partner-inner{grid-template-columns:1fr;}
+  }
+  @media(max-width:768px){
+    .nav-links,.nav-cta{display:none;}
+    .hamburger{display:flex;}
+    .why-grid{grid-template-columns:1fr;}
+    .test-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr 1fr;}
+    .footer-top{grid-template-columns:1fr;}
+    .hero-tagline{flex-wrap:wrap;justify-content:center;}
+    .chip1,.chip2,.chip3{display:none;}
+  }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu{position:fixed;inset:0;background:rgba(10,22,40,.98);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:28px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:white;text-decoration:none;}
+  .mobile-menu a:hover{color:var(--gold);}
+  .mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;color:white;font-size:1.8rem;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#home" onclick="toggleMenu()">Home</a>
+  <a href="#programs" onclick="toggleMenu()">Programs</a>
+  <a href="#about" onclick="toggleMenu()">Why Us</a>
+  <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#contact" class="btn-primary" onclick="toggleMenu()">Get Involved →</a>
+</div>
+
+<nav id="navbar">
+  <a href="#home" class="logo">
+    <div class="logo-icon"><img src="logo.jpeg" alt="Mission Vigyaan Logo"/></div>
+    <div class="logo-text">Mission <span>Vigyaan</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Involved →</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="hero-inner">
+    <div>
+      
+      <h1>Inspiring Young <span class="hl-orange">Innovators</span> in <span class="hl-yellow">Robotics</span> & STEM Education</h1>
+      <p class="hero-sub">Empowering the next generation of creators, builders, and problem-solvers through hands-on robotics and technology education across India.</p>
+      <p class="hero-sub">"SPARKING CREATIVITY, ONE CIRCUIT AT ATIME "</p>
+      <div class="hero-tagline">
+        <span>Learn</span><span class="sep">•</span>
+        <span>Build</span><span class="sep">•</span>
+        <span>Innovate</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#programs" class="btn-primary">Explore Programs →</a>
+        <a href="#gallery" class="btn-secondary">▶ Watch Story</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">500<span>+</span></span>
+          <span class="stat-label">Schools and Colleges Reached</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">10000<span>+</span></span>
+          <span class="stat-label">Students Trained</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">35<span>+</span></span>
+          <span class="stat-label">Cities Covered</span>
+        </div>
+      </div>
+    </div>
+    
+    <!--<div class="hero-visual">
+    <img src="robot.jpg" style="width:85%;max-width:420px;border-radius:20px;display:block;margin:0 auto;filter:drop-shadow(0 16px 40px rgba(16,87,168,0.5));animation:float 6s ease-in-out infinite;"/>
+</div>-->
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="section-label"><span>Our Programs</span></div>
+  <h2 class="section-title reveal">What We Offer</h2>
+  <p class="section-sub reveal">Hands-on learning experiences designed to spark curiosity and build real-world skills in every student.</p>
+  <div class="programs-grid">
+    <div class="prog-card card-blue reveal reveal-delay1">
+      <div class="prog-img"><span class="prog-img-emoji">🦾</span></div>
+      <div class="prog-body">
+        <span class="prog-tag">Flagship</span>
+        <div class="prog-title">Robotics <span>Bootcamps</span></div>
+        <p class="prog-desc">Intensive hands-on training where students build and program robots from scratch using real hardware components.</p>
+        <div class="prog-diamond" style="background:var(--blue)"></div>
+      </div>
+    </div>
+    <div class="prog-card card-orange reveal reveal-delay2">
+      <div class="prog-img"><span class="prog-img-emoji">⚙️</span></div>
+      <div class="prog-body">
+        <span class="prog-tag">Popular</span>
+        <div class="prog-title">Arduino <span>Workshops</span></div>
+        <p class="prog-desc">Learn and program Arduino microcontrollers to create amazing electronic projects and automation systems.</p>
+        <div class="prog-diamond" style="background:#F5841F"></div>
+      </div>
+    </div>
+    
+    <div class="prog-card card-purple reveal reveal-delay2">
+      <div class="prog-img"><span class="prog-img-emoji">🏆</span></div>
+      <div class="prog-body">
+        <span class="prog-tag">Competitive</span>
+        <div class="prog-title">Student <span>Competitions</span></div>
+        <p class="prog-desc">Tech challenges and competitions with exciting prizes that push students to innovate and think creatively.</p>
+        <div class="prog-diamond" style="background:#7B1FA2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="about">
+  <div class="why-inner">
+    <div class="section-label"><span>Why Mission Vigyaan</span></div>
+    <h2 class="section-title reveal">Empowering Students Through<br>Technology &amp; Innovation</h2>
+    <p class="section-sub reveal">We don't just teach technology — we inspire a mindset of curiosity, creativity, and relentless problem-solving.</p>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-delay1">
+        <div class="why-icon-wrap">👩‍🏫</div>
+        <h3>Expert Guidance</h3>
+        <p>Learn from certified educators and industry professionals who bring real-world experience into every session.</p>
+      </div>
+      <div class="why-card reveal reveal-delay2">
+        <div class="why-icon-wrap" style="background:linear-gradient(135deg,var(--accent),#e0711a);">🛠️</div>
+        <h3>Practical Learning</h3>
+        <p>Every concept is reinforced through real projects. Students build, break, and build again — developing true mastery.</p>
+      </div>
+      <div class="why-card reveal reveal-delay3">
+        <div class="why-icon-wrap" style="background:linear-gradient(135deg,#27AE60,#1e8a4c);">🚀</div>
+        <h3>Future Ready Skills</h3>
+        <p>Curriculum designed around tomorrow's job market — AI, robotics, coding, and critical thinking for the 21st century.</p>
+      </div>
+      
+      <div class="why-card reveal reveal-delay2">
+        <div class="why-icon-wrap" style="background:linear-gradient(135deg,#E53935,#c62828);">🎯</div>
+        <h3>Outcome Focused</h3>
+        <p>We track every student's progress and ensure measurable improvements in analytical and technical skills.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact">
+  <div class="impact-inner">
+    <div class="section-label"><span>Our Impact</span></div>
+    <h2 class="section-title reveal">Numbers That Speak</h2>
+    <p class="section-sub reveal">The results of our mission to transform education through technology.</p>
+    <div class="impact-grid">
+      <div class="impact-card reveal reveal-delay1">
+        <span class="impact-icon">🏫</span>
+        <span class="impact-num">500+</span>
+        <div class="impact-label">Schools Empowered</div>
+      </div>
+      <div class="impact-card reveal reveal-delay2">
+        <span class="impact-icon">👨‍🎓</span>
+        <span class="impact-num">10000+</span>
+        <div class="impact-label">Students Trained</div>
+      </div>
+      <div class="impact-card reveal reveal-delay3">
+        <span class="impact-icon">🌆</span>
+        <span class="impact-num">35+</span>
+        <div class="impact-label">Cities Covered</div>
+      </div>
+      <div class="impact-card reveal reveal-delay4">
+        <span class="impact-icon">🥇</span>
+        <span class="impact-num">200+</span>
+        <div class="impact-label">Competition Winners</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="gallery" id="gallery">
+  <div class="gallery-inner">
+    <div class="section-label"><span>Gallery</span></div>
+    <h2 class="section-title reveal">Moments of Innovation</h2>
+    <p class="section-sub reveal">Snapshots from our workshops, competitions, and labs across India.</p>
+    <div class="gallery-grid">
+      <div class="g-item tall g-bg1 reveal" data-label="🦾  Robotics Bootcamp — Hyderabad">🤖</div>
+      <div class="g-item g-bg2 reveal reveal-delay1" data-label="⚙️  Arduino Workshop — Pune">⚡</div>
+      <div class="g-item g-bg3 reveal reveal-delay2" data-label="🔬  Innovation Lab — Chennai">🔬</div>
+      <div class="g-item g-bg4 reveal reveal-delay1" data-label="🏆  Competition Finals — Bengaluru">🥇</div>
+      <div class="g-item g-bg5 reveal reveal-delay2" data-label="🎓  Graduation Ceremony — Mumbai">🎓</div>
+      <div class="g-item g-bg6 reveal reveal-delay3" data-label="🧪  Science Exhibition — Delhi">🧪</div>
+    </div>
+  </div>
+</section>
+<section class="photo-marquee-wrapper" id="workshop-photos">
+  <div class="section-label"><span>Workshop Highlights</span></div>
+  <div class="photo-marquee reveal reveal-delay1">
+    <div class="marquee-track">
+      <img src="images/ws1.jpeg" alt="Workshop">
+      <img src="images/ws2.jpeg" alt="Workshop">
+      <img src="images/ws3.jpeg" alt="Workshop">
+      <img src="images/ws4.jpeg" alt="Workshop">
+      <img src="images/ws5.jpeg" alt="Workshop">
+      <img src="images/ws6.jpeg" alt="Workshop">
+      <img src="images/ws7.jpeg" alt="Workshop">
+      <img src="images/ws8.jpeg" alt="Workshop">
+      <img src="images/ws9.jpeg" alt="Workshop">
+      <img src="images/ws10.jpeg" alt="Workshop">
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <img src="images/ws1.jpeg" alt="Workshop">
+      <img src="images/ws2.jpeg" alt="Workshop">
+      <img src="images/ws3.jpeg" alt="Workshop">
+      <img src="images/ws4.jpeg" alt="Workshop">
+      <img src="images/ws5.jpeg" alt="Workshop">
+      <img src="images/ws6.jpeg" alt="Workshop">
+      <img src="images/ws7.jpeg" alt="Workshop">
+      <img src="images/ws8.jpeg" alt="Workshop">
+      <img src="images/ws9.jpeg" alt="Workshop">
+      <img src="images/ws10.jpeg" alt="Workshop">
+    </div>
+  </div>
+</section>
+
+<section class="partner" id="contact">
+  <div class="partner-inner">
+    <div class="partner-text reveal">
+      <div class="section-label" style="justify-content:flex-start;"><span>Partner With Us</span></div>
+      <h2>Transforming Education Through <span>Technology!</span></h2>
+      <p>Whether you're a school looking to set up an innovation lab, a parent eager to enroll your child, or a corporate looking to give back through CSR — we'd love to connect.</p>
+      <div class="partner-btns">
+        <a href="mailto:missionvigyaan25@gmail.com" class="btn-primary">Become a Partner →</a>
+        <a href="tel:+918143648812" class="btn-green">📞 Contact Us</a>
+      </div>
+      <div class="badge-row">
+        <span class="badge">✅ Free Consultation</span>
+        <span class="badge">🎓 Certified Programs</span>
+        <span class="badge">🌐 Pan-India Presence</span>
+      </div>
+    </div>
+    <div class="partner-visual reveal reveal-delay2">
+      <div class="p-mini-card">
+        <div class="p-mini-icon">🏫</div>
+        <div class="p-mini-title">For Schools</div>
+        <div class="p-mini-desc">Set up labs & workshops in your campus</div>
+      </div>
+      <div class="p-mini-card">
+        <div class="p-mini-icon">👨‍👩‍👧</div>
+        <div class="p-mini-title">For Parents</div>
+        <div class="p-mini-desc">Enroll your child in weekend programs</div>
+      </div>
+      <div class="p-mini-card">
+        <div class="p-mini-icon">🏢</div>
+        <div class="p-mini-title">For Corporates</div>
+        <div class="p-mini-desc">CSR partnerships for STEM education</div>
+      </div>
+      <div class="p-mini-card">
+        <div class="p-mini-icon">🤝</div>
+        <div class="p-mini-title">For NGOs</div>
+        <div class="p-mini-desc">Collaborate to reach underserved kids</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <div class="logo-icon">🤖</div>
+          <div class="logo-text">Mission <span>Vigyaan</span></div>
+        </a>
+        <p>Inspiring young innovators across India through hands-on robotics and STEM education since 2018.</p>
+        <div class="footer-social">
+          <a class="s-btn" href="#">📘</a>
+          <a class="s-btn" href="#">📸</a>
+          <a class="s-btn" href="#">▶️</a>
+          <a class="s-btn" href="#">🐦</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#">Robotics Bootcamps</a></li>
+          <li><a href="#">Arduino Workshops</a></li>
+          <li><a href="#">Innovation Labs</a></li>
+          <li><a href="#">Science Exhibitions</a></li>
+          <li><a href="#">Competitions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:missionvigyaan25@gmail.com">📧 missionvigyaan25@gmail.com </a></li>
+          <li><a href="tel:+918143648812">📞 +91 8143648812</a></li>
+          <li><a href="#">📍 Bengaluru, Vijayawada</a></li>
+          <li><a href="#">🕘 Mon–Sat, 9am–6pm</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Mission Vigyaan. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+      <p>Made with ❤️ for India's young innovators</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox Modal for Workshop Highlights -->
+<div class="image-modal" id="imageModal" aria-hidden="true">
+  <div class="image-modal-wrapper">
+    <button class="image-modal-close" id="modalCloseBtn" aria-label="Close popup">&times;</button>
+    <img class="image-modal-img" id="modalImg" src="" alt="Enlarged workshop highlight">
+  </div>
+</div>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll',()=>{
+    const nav=document.getElementById('navbar');
+    nav.style.background=window.scrollY>50?'rgba(10,22,40,0.98)':'rgba(10,22,40,0.92)';
+  });
+
+  // Mobile menu
+  function toggleMenu(){
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Scroll reveal
+  const reveals=document.querySelectorAll('.reveal');
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+  },{threshold:0.12});
+  reveals.forEach(el=>io.observe(el));
+
+  // Count up animation for impact numbers
+  function countUp(el,target,suffix=''){
+    const duration=2000,start=performance.now();
+    const isLarge=target>=1000;
+    function update(now){
+      const elapsed=now-start;
+      const progress=Math.min(elapsed/duration,1);
+      const eased=1-Math.pow(1-progress,3);
+      const current=Math.floor(eased*target);
+      el.textContent=(isLarge?current.toLocaleString('en-IN'):current)+suffix;
+      if(progress<1)requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const impactObs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const nums=document.querySelectorAll('.impact-num');
+        const targets=[500,10000,25,200];
+        nums.forEach((n,i)=>countUp(n,targets[i],'+'));
+        impactObs.disconnect();
+      }
+    });
+  },{threshold:0.3});
+  const impactSection=document.querySelector('.impact');
+  if(impactSection) impactObs.observe(impactSection);
+
+  // Workshop Highlights Lightbox Modal
+  const imageModal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const workshopImgs = document.querySelectorAll('.photo-marquee img');
+
+  workshopImgs.forEach(img => {
+    img.addEventListener('click', () => {
+      if(modalImg && imageModal) {
+        modalImg.src = img.src;
+        modalImg.alt = img.alt || 'Workshop Highlight';
+        imageModal.classList.add('open');
+        imageModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  function closeModal() {
+    if(imageModal) {
+      imageModal.classList.remove('open');
+      imageModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', closeModal);
+  }
+
+  if (imageModal) {
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal || e.target.classList.contains('image-modal-wrapper')) {
+        closeModal();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && imageModal && imageModal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+</script>
+</body>
+</html>
